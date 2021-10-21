@@ -1,16 +1,19 @@
 import styled, { keyframes } from 'styled-components';
-
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import WashingMachine from './components/WashingMachine';
-
+import ClothesContainer from './components/ClothesContainer';
 const AppCss = styled.div`
   width: 100vw;
   height: 100vh;
   position: relative;
   background-image: url('https://www.wallpapertip.com/wmimgs/79-793433_pastel-aesthetic-wallpaper-blue.jpg');
-  background-size: 100% 100%;
+  background-size: 100vw 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const Background = styled.div`
@@ -29,34 +32,16 @@ const Background = styled.div`
   }
 `;
 
-const Foreground = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('../test.png');
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  z-index: 2;
-  /* filter: opacity(0.5) drop-shadow(0 0 0 green); */
-`;
-
-const ClothesContainer = styled.div`
-  width: 46%;
-  height: 90%;
-  background-color: blue;
-`;
-
 function App() {
   return (
-    <AppCss>
-      <Background>
-        <WashingMachine />
-        <ClothesContainer>옷container</ClothesContainer>
-      </Background>
-    </AppCss>
+    <DndProvider backend={HTML5Backend}>
+      <AppCss>
+        <Background>
+          <WashingMachine />
+          <ClothesContainer />
+        </Background>
+      </AppCss>
+    </DndProvider>
   );
 }
 
