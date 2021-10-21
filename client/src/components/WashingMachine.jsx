@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import { useDrop } from 'react-dnd';
 
 const open = keyframes`
 from {
@@ -12,16 +13,23 @@ from {
     }
 `;
 
+const waving = keyframes`
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
 const WaterContainer = styled.div`
   width: 46%;
   height: 90%;
-  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Machine = styled.div`
   width: 260px;
   height: 400px;
-  background: white;
 `;
 const Above = styled.div`
   width: 230px;
@@ -29,7 +37,6 @@ const Above = styled.div`
   margin: 0 auto -5px auto;
   border-radius: 20px;
   perspective: 100px;
-  background-color: white;
   ::before {
     content: '';
     display: block;
@@ -43,6 +50,22 @@ const Above = styled.div`
   }
 `;
 
+const Body = styled.div`
+  width: 140px;
+  height: 140px;
+  margin: 30px auto 0 auto;
+  position: relative;
+  box-shadow: 0 0 0 8px #0e1988, 0 0 0 24px #6aa2f2, 0 0 0 32px #0e1988;
+  border-radius: 100%;
+  background: rgba(151, 253, 242, 0.5);
+  overflow: hidden;
+  z-index: 3;
+  &:hover {
+    transform: translateZ(0);
+    animation: ${open} 0.5s ease-in 0s 1 forwards;
+  }
+`;
+
 const Canvas = styled.div`
   width: 260px;
   height: 355px;
@@ -52,6 +75,13 @@ const Canvas = styled.div`
   background: #d4e4fd;
   box-shadow: inset 0 -12px #c2defd;
   position: relative;
+  z-index: 100;
+  &:hover {
+    ${Body} {
+      transform: translateZ(0);
+      animation: ${open} 0.5s ease-in 0s 1 forwards;
+    }
+  }
 `;
 
 const Header = styled.div`
@@ -127,7 +157,7 @@ const Button = styled.div`
     }
   }
 `;
-const Seperator = styled.div`
+const Separator = styled.div`
   width: 100%;
   height: 22px;
   float: left;
@@ -235,43 +265,61 @@ const Flare = styled.div`
   }
 `;
 
-const Body = styled.div`
-  width: 140px;
-  height: 140px;
-  margin: 30px auto 0 auto;
-  position: relative;
-  box-shadow: 0 0 0 8px #0e1988, 0 0 0 24px #6aa2f2, 0 0 0 32px #0e1988;
-  border-radius: 100%;
-  background: #97fff2;
-  overflow: hidden;
-  z-index: 3;
-
-  :hover {
-    transform: translateZ(0);
-    animation: ${open} 0.5s ease-in 0s 1 forwards;
-  }
-  /* ::before {
-    content: '';
-    display: block;
-    width: 140px;
-    height: 140px;
-    margin: 30px auto 0 auto;
-    background-color: red;
-    z-index: 5;
-  } */
-`;
-
 const InnerBody = styled.div`
   width: 140px;
   height: 140px;
   margin: 30px auto 0 auto;
   border-radius: 100%;
-  background: black;
+  background: #453e57;
   overflow: hidden;
   position: absolute;
   top: 80px;
   left: 60px;
   z-index: 2;
+  box-shadow: 0 0 0 8px #d6f8ff;
+`;
+
+const WaveOne = styled.div`
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  top: -65%;
+  left: -30%;
+  border-radius: 45%;
+  background: rgba(3, 169, 244, 0.8);
+  animation: ${waving} 1s infinite linear;
+`;
+
+const WaveTwo = styled.div`
+  width: 240px;
+  height: 240px;
+  position: absolute;
+  top: -100%;
+  left: -30%;
+  border-radius: 45%;
+  background: rgba(34, 79, 242, 0.8);
+  animation: ${waving} 3s infinite linear;
+`;
+const WaveThree = styled.div`
+  width: 210px;
+  height: 210px;
+  position: absolute;
+  top: -100%;
+  left: -30%;
+  border-radius: 45%;
+  background: #453e57;
+  border: 3px solid rgba(131, 119, 152, 0.7);
+  animation: ${waving} 5s infinite linear;
+`;
+const WaveFour = styled.div`
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  top: -95%;
+  left: -30%;
+  border-radius: 46%;
+  background: linear-gradient(rgba(252, 251, 232, 0.1) 10%, transparent);
+  animation: ${waving} 5s infinite linear;
 `;
 
 const Footer = styled.div`
@@ -368,9 +416,27 @@ const Base = styled.div`
 `;
 
 function WashingMachine() {
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: 'image',
+    drop: (item) => openModal(item.id),
+    collect: (monito) => ({
+      isOver: !!monito.isOver(),
+    }),
+    hover(item, { id: draggedId }) {
+      console.log(draggedId !== item.id);
+      //여기서 문 열리고
+    },
+  }));
+
+  const openModal = (item) => {
+    console.log(item, 'open');
+    //문 닫히고
+    return;
+  };
+
   return (
     <WaterContainer>
-      <Machine>
+      <Machine ref={drop}>
         <Above></Above>
         <Canvas>
           <Header>
@@ -384,11 +450,11 @@ function WashingMachine() {
               <span></span>
               <span></span>
             </Button>
-            <Seperator>
+            <Separator>
               <span></span>
               <span></span>
               <span></span>
-            </Seperator>
+            </Separator>
           </Header>
           <Flare>
             <span>
@@ -398,8 +464,13 @@ function WashingMachine() {
               <p></p>
             </span>
           </Flare>
-          <Body></Body>
-          <InnerBody></InnerBody>
+          <Body className="open"></Body>
+          <InnerBody>
+            <WaveOne></WaveOne>
+            <WaveTwo></WaveTwo>
+            <WaveThree></WaveThree>
+            <WaveFour></WaveFour>
+          </InnerBody>
           <Footer>
             <Edge></Edge>
             <Fix></Fix>
