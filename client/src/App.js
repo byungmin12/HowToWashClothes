@@ -1,8 +1,11 @@
-import styled, { keyframes } from 'styled-components';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import WashingMachine from './components/WashingMachine';
 import ClothesContainer from './components/ClothesContainer';
+import WashInfoModal from './components/WashInfoModal';
+
 const AppCss = styled.div`
   width: 100vw;
   height: 100vh;
@@ -12,8 +15,7 @@ const AppCss = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  overflow: hidden;
 `;
 
 const Background = styled.div`
@@ -33,6 +35,8 @@ const Background = styled.div`
 `;
 
 function App() {
+  const state = useSelector((state) => state);
+  console.log(state);
   return (
     <DndProvider backend={HTML5Backend}>
       <AppCss>
@@ -40,6 +44,9 @@ function App() {
           <WashingMachine />
           <ClothesContainer />
         </Background>
+        {state.ClothesModalReducer.isModalOpenClose ? (
+          <WashInfoModal data={state.ClothesModalReducer.ClothesData[0]} />
+        ) : null}
       </AppCss>
     </DndProvider>
   );
