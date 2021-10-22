@@ -1,5 +1,8 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { handleOpenCloseWashingMachine } from '../actions/WashingMachineActionIndex';
+import { handleOpenClothesModal } from '../actions/ClotheModalActionIndex';
+import styled, { keyframes, css } from 'styled-components';
 import { useDrop } from 'react-dnd';
 
 const open = keyframes`
@@ -13,34 +16,111 @@ from {
     }
 `;
 
+const close = keyframes`
+from {
+  transform: perspective(1000px) rotateY(-105deg);
+        transform-origin: 0% 0%;
+    }
+    to {
+        
+        transform: perspective(1000px) rotateY(0deg);
+        transform-origin: 0% 0%;
+    }
+`;
+
+const appear = keyframes`
+
+    to {
+       opacity:1
+    }
+`;
+
 const waving = keyframes`
   100% {
     transform: rotate(360deg);
   }
 `;
 
+const wavingMachine = keyframes`
+10%{
+  transform : translate(-0.6% , 0.6%)
+}
+20%{
+  transform : translate(0.6% , 0.4%)
+
+}
+60%{
+  transform : translate(-0.6% , 0.6%)
+
+}
+40%{
+  transform : translate(0.6% , 0.2%)
+
+}
+50%{
+  transform : translate(-0.6% , 0.6%)
+
+}
+60%{
+  transform : translate(0.6% , 0.8%)
+
+}
+70%{
+  transform : translate(-0.6% , 0.6%)
+  
+}
+80%{
+  transform : translate(0.6% , 0.3%)
+  
+}
+90%{
+  transform : translate(-0.6% , 0.6%)
+  
+}
+  100% {
+    transform : translate(0% , 0%)
+
+  }
+`;
+
 const WaterContainer = styled.div`
-  width: 46%;
+  width: 50%;
   height: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: ${wavingMachine} 1s infinite;
+  ${({ machineShake }) => {
+    return machineShake
+      ? css`
+          animation: ${wavingMachine} 0.5s infinite;
+        `
+      : css`
+          animation-play-state: paused;
+        `;
+  }}
 `;
 
 const Machine = styled.div`
   width: 260px;
   height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-filter: drop-shadow(black -3px -4px 10px);
+  filter: drop-shadow(black 3px 4px 10px);
 `;
 const Above = styled.div`
-  width: 230px;
+  width: 240px;
   height: 30px;
-  margin: 0 auto -5px auto;
+  /* margin: 0 auto -5px auto; */
   border-radius: 20px;
   perspective: 100px;
   ::before {
     content: '';
     display: block;
-    width: 220px;
+    width: 215px;
     height: 30px;
     border: solid 12px #0e1988;
     border-radius: 20px;
@@ -60,10 +140,15 @@ const Body = styled.div`
   background: rgba(151, 253, 242, 0.5);
   overflow: hidden;
   z-index: 3;
-  &:hover {
-    transform: translateZ(0);
-    animation: ${open} 0.5s ease-in 0s 1 forwards;
-  }
+  ${({ isOpenClose }) => {
+    return isOpenClose
+      ? css` transform: translateZ(0);
+      animation: ${open} 0.5s ease-in 0s 1 forwards;
+    }`
+      : css` transform: translateZ(0);
+      animation: ${close} 0.5s ease-in 0s 1 forwards;
+    }`;
+  }}
 `;
 
 const Canvas = styled.div`
@@ -76,12 +161,15 @@ const Canvas = styled.div`
   box-shadow: inset 0 -12px #c2defd;
   position: relative;
   z-index: 100;
-  &:hover {
+  /* &:hover {
     ${Body} {
       transform: translateZ(0);
       animation: ${open} 0.5s ease-in 0s 1 forwards;
     }
-  }
+  } */
+  /* ${({ isDragging }) => {
+    return isDragging ? `opacity: 0.4;` : `opacity: 1;`;
+  }}; */
 `;
 
 const Header = styled.div`
@@ -287,7 +375,13 @@ const WaveOne = styled.div`
   left: -30%;
   border-radius: 45%;
   background: rgba(3, 169, 244, 0.8);
-  animation: ${waving} 1s infinite linear;
+  opacity: 0;
+  /* animation: ${waving} 1s infinite linear; */
+  animation-name: ${appear}, ${waving};
+  animation-delay: 0s, 0.7s;
+  animation-duration: 0.6s, 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1, infinite;
 `;
 
 const WaveTwo = styled.div`
@@ -298,7 +392,14 @@ const WaveTwo = styled.div`
   left: -30%;
   border-radius: 45%;
   background: rgba(34, 79, 242, 0.8);
-  animation: ${waving} 3s infinite linear;
+  opacity: 0;
+
+  /* animation: ${waving} 3s infinite linear; */
+  animation-name: ${appear}, ${waving};
+  animation-delay: 0s, 0.7s;
+  animation-duration: 0.6s, 3s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1, infinite;
 `;
 const WaveThree = styled.div`
   width: 210px;
@@ -309,7 +410,13 @@ const WaveThree = styled.div`
   border-radius: 45%;
   background: #453e57;
   border: 3px solid rgba(131, 119, 152, 0.7);
-  animation: ${waving} 5s infinite linear;
+  opacity: 0;
+  /* animation: ${waving} 5s infinite linear; */
+  animation-name: ${appear}, ${waving};
+  animation-delay: 0s, 0.7s;
+  animation-duration: 0.6s, 5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1, infinite;
 `;
 const WaveFour = styled.div`
   width: 250px;
@@ -319,7 +426,13 @@ const WaveFour = styled.div`
   left: -30%;
   border-radius: 46%;
   background: linear-gradient(rgba(252, 251, 232, 0.1) 10%, transparent);
-  animation: ${waving} 5s infinite linear;
+  opacity: 0;
+  /* animation: ${waving} 5s infinite linear; */
+  animation-name: ${appear}, ${waving};
+  animation-delay: 0s, 0.7s;
+  animation-duration: 0.6s, 5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1, infinite;
 `;
 
 const Footer = styled.div`
@@ -408,14 +521,17 @@ const Base = styled.div`
     top: -5px;
   }
   &:before {
-    left: 29%;
+    left: 49%;
   }
   &:after {
-    left: 60%;
+    left: 87%;
   }
 `;
 
 function WashingMachine() {
+  const [machineShake, setMachineShake] = useState(false);
+  const state = useSelector((state) => state.WashingMachineReducer);
+  const dispatch = useDispatch();
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'image',
     drop: (item) => openModal(item.id),
@@ -425,17 +541,26 @@ function WashingMachine() {
     hover(item, { id: draggedId }) {
       console.log(draggedId !== item.id);
       //여기서 문 열리고
+      dispatch(handleOpenCloseWashingMachine(true));
     },
   }));
 
   const openModal = (item) => {
     console.log(item, 'open');
     //문 닫히고
+    dispatch(handleOpenCloseWashingMachine(false));
+    setMachineShake(true);
+    setTimeout(() => {
+      setMachineShake(false);
+    }, 1000);
+    setTimeout(() => {
+      dispatch(handleOpenClothesModal(item));
+    }, 1100);
     return;
   };
 
   return (
-    <WaterContainer>
+    <WaterContainer machineShake={machineShake}>
       <Machine ref={drop}>
         <Above></Above>
         <Canvas>
@@ -464,7 +589,7 @@ function WashingMachine() {
               <p></p>
             </span>
           </Flare>
-          <Body className="open"></Body>
+          <Body className="open" isOpenClose={state.isOpenClose}></Body>
           <InnerBody>
             <WaveOne></WaveOne>
             <WaveTwo></WaveTwo>
