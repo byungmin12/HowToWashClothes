@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import styled, { keyframes } from 'styled-components';
 import Clothes from './Clothes';
+import Search from './Search';
 
 const Container = styled.div`
   width: 50%;
@@ -28,13 +29,14 @@ const ClothesContainerCss = styled.div`
 `;
 
 const Loading = styled.div`
-  width: 100%;
+  width: 80%;
   height: 20%;
   /* margin: 50px auto; */
   /* text-align: center; */
   position: absolute;
   top: 50%;
-  transform: translate(0%, -50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 150;
   background-color: rgba(255, 255, 255, 0.3);
   display: flex;
@@ -95,13 +97,13 @@ function ClothesContainer() {
 
   return (
     <Container>
+      <Search />
       <ClothesContainerCss onScroll={(e) => handleScroll(e)}>
         {data.map((el) => {
           return <Clothes data={el} key={el.id} />;
         })}
       </ClothesContainerCss>
       {isLoading ? <Loading>Loading...</Loading> : null}
-      {/* <Loading>Loading...</Loading> */}
     </Container>
   );
 }
