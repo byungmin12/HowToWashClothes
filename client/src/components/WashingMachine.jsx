@@ -108,25 +108,29 @@ const Machine = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  -webkit-filter: drop-shadow(black -3px -4px 10px);
-  filter: drop-shadow(black 3px 4px 10px);
+  /* -webkit-filter: drop-shadow(black -3px -4px 10px);
+  filter: drop-shadow(black 3px 4px 10px); */
 `;
 const Above = styled.div`
-  width: 240px;
+  width: 280px;
   height: 30px;
   /* margin: 0 auto -5px auto; */
   border-radius: 20px;
   perspective: 100px;
+  position: relative;
   ::before {
     content: '';
     display: block;
-    width: 215px;
+    width: 243px;
     height: 30px;
-    border: solid 12px #0e1988;
+    border: solid 2px black;
     border-radius: 20px;
     border-bottom: none;
     transform: rotateX(40deg);
-    background: #deedfe;
+    background: #8c9395;
+    position: absolute;
+    top: 15px;
+    left: 17px;
   }
 `;
 
@@ -135,7 +139,7 @@ const Body = styled.div`
   height: 140px;
   margin: 30px auto 0 auto;
   position: relative;
-  box-shadow: 0 0 0 8px #0e1988, 0 0 0 24px #6aa2f2, 0 0 0 32px #0e1988;
+  box-shadow: 0 0 0 8px black, 0 0 0 24px #6aa2f2, 0 0 0 32px black;
   border-radius: 100%;
   background: rgba(151, 253, 242, 0.5);
   overflow: hidden;
@@ -154,10 +158,10 @@ const Body = styled.div`
 const Canvas = styled.div`
   width: 260px;
   height: 355px;
-  border: solid 8px #0e1988;
+  border: solid 2px black;
   border-radius: 20px;
   overflow: hidden;
-  background: #d4e4fd;
+  background: #e1e2e1;
   box-shadow: inset 0 -12px #c2defd;
   position: relative;
   z-index: 100;
@@ -175,14 +179,14 @@ const Canvas = styled.div`
 const Header = styled.div`
   width: 100%;
   height: 80px;
-  background: #b7d3fd;
+  background: #bdc3c7;
 `;
 
 const Programmer = styled.div`
   position: relative;
   width: 30px;
   height: 30px;
-  border: solid 8px #0e1988;
+  border: solid 8px black;
   border-radius: 100%;
   background: #6aa2f2;
   margin: 10px 0 0 20px;
@@ -192,7 +196,7 @@ const Programmer = styled.div`
     content: '';
     width: 15px;
     height: 15px;
-    border: solid 4px #0e1988;
+    border: solid 4px black;
     border-radius: 100%;
     background: #96c1fd;
     position: absolute;
@@ -206,7 +210,7 @@ const LED = styled.div`
   position: relative;
   width: 70px;
   height: 23px;
-  border: solid 8px #0e1988;
+  border: solid 8px black;
   border-radius: 5px;
   background: #6aa2f2;
   margin: 10px 0 0 20px;
@@ -217,8 +221,8 @@ const LED = styled.div`
     width: 30px;
     height: 115%;
     background: #99d3ba;
-    border-left: solid 8px #0e1988;
-    border-right: solid 8px #0e1988;
+    border-left: solid 8px black;
+    border-right: solid 8px black;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -238,7 +242,7 @@ const Button = styled.div`
     margin: 3px;
     border-radius: 30%;
     background: #96c1fd;
-    border: solid 4px #0e1988;
+    border: solid 4px black;
     box-shadow: 0 3px #a3c5f9;
     &:nth-child(1) {
       background: #fd8185;
@@ -262,26 +266,29 @@ const Separator = styled.div`
         content: '';
         width: 400px;
         height: 200px;
-        border: solid 8px #0e1988;
+        border: solid 2px black;
         border-radius: 100%;
         position: absolute;
         bottom: 0;
         left: -130px;
+        background-color: #bdc3c7;
       }
     }
     &:nth-child(2) {
       width: 46%;
       margin-top: -4px;
       height: 26px;
+      background-color: #bdc3c7;
+
       ::before {
         content: '';
         width: 200px;
         height: 200px;
-        border: solid 8px #0e1988;
+        border: solid 2px black;
         border-radius: 100%;
-        background: #d4e4fd;
+        background: #e1e2e1;
         position: absolute;
-        top: 0;
+        top: 5px;
         left: 50%;
         transform: translate(-50%, 0);
       }
@@ -292,11 +299,12 @@ const Separator = styled.div`
         content: '';
         width: 400px;
         height: 200px;
-        border: solid 8px #0e1988;
+        border: solid 2px black;
         border-radius: 100%;
         position: absolute;
         bottom: 0;
         right: -130px;
+        background-color: #bdc3c7;
       }
     }
   }
@@ -310,6 +318,7 @@ const Flare = styled.div`
   width: 250px;
   height: 200px;
   margin: 0 auto;
+  background-color: #e1e2e1;
   span:nth-child(1) {
     float: right;
     position: relative;
@@ -439,13 +448,14 @@ const Footer = styled.div`
   width: 100%;
   height: 105px;
   position: relative;
+  background-color: #e1e2e1;
   ::before {
     content: '';
     width: 0px;
     height: 12px;
     display: block;
     margin-left: 10px;
-    border: solid 4px #0e1988;
+    border: solid 4px #fff;
     margin-bottom: 10px;
     border-radius: 10px;
     position: absolute;
@@ -458,7 +468,7 @@ const Footer = styled.div`
     height: 0px;
     display: block;
     margin-left: 20px;
-    border: solid 4px #0e1988;
+    border: solid 4px #fff;
     margin-bottom: 10px;
     border-radius: 10px;
     position: absolute;
@@ -480,7 +490,7 @@ const Edge = styled.div`
     width: 100%;
     height: 100%;
     display: block;
-    border: solid 8px #0e1988;
+    border: solid 8px #fff;
     position: absolute;
     top: -100%;
     left: 0;
@@ -492,7 +502,7 @@ const Fix = styled.div`
   height: 12px;
   display: block;
   margin-left: 10px;
-  border: solid 4px #0e1988;
+  border: solid 4px #fff;
   margin-bottom: 10px;
   border-radius: 10px;
   position: absolute;
@@ -504,7 +514,7 @@ const Base = styled.div`
   width: 200%;
   height: 8px;
   transform: translate(-23%, 0);
-  /* border-bottom: solid 8px #0e1988; */
+  /* border-bottom: solid 8px black; */
   &:before,
   &:after {
     content: '';
@@ -512,8 +522,8 @@ const Base = styled.div`
     width: 35px;
     height: 8px;
     background: #6aa1f0;
-    border: solid 8px #0e1988;
-    border-top: solid 5px #0e1988;
+    border: solid 2px black;
+    border-top: solid 1px black;
     border-radius: 20px;
     border-bottom-right-radius: 30px;
     border-bottom-left-radius: 30px;
@@ -521,10 +531,10 @@ const Base = styled.div`
     top: -5px;
   }
   &:before {
-    left: 49%;
+    left: 51%;
   }
   &:after {
-    left: 87%;
+    left: 88%;
   }
 `;
 

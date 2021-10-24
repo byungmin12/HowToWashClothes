@@ -10,8 +10,9 @@ const AppCss = styled.div`
   width: 100vw;
   height: 100vh;
   position: relative;
-  background-image: url('https://www.wallpapertip.com/wmimgs/79-793433_pastel-aesthetic-wallpaper-blue.jpg');
-  background-size: 100vw 100vh;
+  /* background-image: url('https://www.wallpapertip.com/wmimgs/79-793433_pastel-aesthetic-wallpaper-blue.jpg'); */
+  /* background-size: 100vw 100vh; */
+  background-color: #c4b2a8;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,12 +22,15 @@ const AppCss = styled.div`
 const Background = styled.div`
   width: 70%;
   height: 80%;
-  border-radius: 30px;
-  background-color: #c8d3ff;
+  /* border-radius: 30px; */
+
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  box-shadow: #ffffff -3px -4px 10px 0px, #757ea0 3px 4px 10px 0px;
+
+  background: #c4b2a8;
+  box-shadow: 28px 28px 55px #a7978f, -28px -28px 55px #e1cdc1;
+
   @media screen and (max-width: 500px) {
     flex-direction: column;
     justify-content: center;

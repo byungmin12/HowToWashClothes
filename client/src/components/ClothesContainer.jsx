@@ -7,16 +7,17 @@ import Search from './Search';
 
 const Container = styled.div`
   width: 50%;
-  height: 90%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
-  padding: 20px;
+  /* padding: 20px; */
+  background-color: #93796d;
 `;
 
 const ClothesContainerCss = styled.div`
-  width: 100%;
-  height: 95%;
+  width: 96%;
+  height: 100%;
   /* background-color: red; */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -26,6 +27,8 @@ const ClothesContainerCss = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+  padding: 2%;
+  margin-bottom: 25px;
 `;
 
 const Loading = styled.div`
