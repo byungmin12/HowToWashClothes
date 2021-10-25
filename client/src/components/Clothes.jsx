@@ -4,36 +4,58 @@ import { useDrag } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import { handleOpenClothesModal } from '../actions/ClotheModalActionIndex';
 
+const HoverTitle = styled.div`
+  width: 100%;
+  height: 30%;
+  background-color: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  display: none;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Img = styled.div`
   display: inline-block;
-  width: 155px;
-  height: 155px;
+  width: 100px;
+  height: 100px;
   margin: 30px;
   /* ${({ data }) => {
     return data ? `background-image: url(${data.url}); background-size: 100% 100%; ` : null;
   }}; */
-  ${({ isDragging }) => {
-    return isDragging ? `opacity: 0.4;` : `opacity: 1;`;
-  }};
+
   /* background-color: transparent; */
   position: relative;
   z-index: 1;
+  transition-duration: 1s;
   :hover {
-    transform: scale(1.1);
+    transform: scale(1.01);
     cursor: pointer;
   }
 
-  /* -webkit-filter: drop-shadow(#ffffff -3px -4px 10px);
-  filter: drop-shadow(#757ea0 3px 4px 10px); */
+  :active {
+    box-shadow: inset 5px 5px 12px #493c36, inset -5px -5px 12px #a38678;
+  }
 
   border-radius: 30px;
 
   background: linear-gradient(145deg, #9d8175, #846d62);
-  box-shadow: 5px 5px 12px #766157, -5px -5px 27px #b09183;
-
+  box-shadow: 5px 5px 12px #493c36, -5px -5px 12px #a38678;
+  position: relative;
   display: flex;
   align-self: center;
   justify-self: center;
+
+  ${({ isDragging }) => {
+    return isDragging ? `opacity: 0.4;` : `opacity: 1;`;
+  }};
+
+  &:hover {
+    ${HoverTitle} {
+      display: flex;
+    }
+  }
 `;
 
 const IMG = styled.img`
@@ -63,6 +85,9 @@ function Clothes({ data }) {
   return (
     <Img onClick={handleModal} ref={drag} isDragging={isDragging} data={data}>
       <IMG src={data.url} />
+      <HoverTitle>
+        <span>{data.title}</span>
+      </HoverTitle>
     </Img>
   );
 }
