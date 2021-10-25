@@ -11,23 +11,20 @@ export const ClothesInitialState = {
     },
     {
       id: 2,
-
-      title: 'T-Shirt',
+      title: 'o',
       url: '../../icon/2.png',
       explain:
         '없는 이 청춘의 철환하였는가? 같이, 이 인생에 이상, 전인 맺어, 위하여서 보는 무엇이 아니다. 그들의 스며들어 인류의 듣는다. 시들어 생명을 인생에 것이다.보라, 꾸며 뿐이다. 영원히 얼마나 동력은 가치를 듣는다. 자신과 보는 구하지 가슴이 같은 인류의 부패뿐이다.',
     },
     {
       id: 3,
-
-      title: 'T-Shirt',
+      title: 'p',
       url: '../../icon/3.png',
       explain:
         '없는 이 청춘의 철환하였는가? 같이, 이 인생에 이상, 전인 맺어, 위하여서 보는 무엇이 아니다. 그들의 스며들어 인류의 듣는다. 시들어 생명을 인생에 것이다.보라, 꾸며 뿐이다. 영원히 얼마나 동력은 가치를 듣는다. 자신과 보는 구하지 가슴이 같은 인류의 부패뿐이다.',
     },
     {
       id: 4,
-
       title: 'T-Shirt',
       url: '../../icon/4.png',
       explain:
@@ -585,4 +582,9 @@ export const ModalInitialState = {
         '없는 이 청춘의 철환하였는가? 같이, 이 인생에 이상, 전인 맺어, 위하여서 보는 무엇이 아니다. 그들의 스며들어 인류의 듣는다. 시들어 생명을 인생에 것이다.보라, 꾸며 뿐이다. 영원히 얼마나 동력은 가치를 듣는다. 자신과 보는 구하지 가슴이 같은 인류의 부패뿐이다.',
     },
   ],
+};
+
+export const WashingMachineOnOffInitialState = {
+  isOpenClose: false,
+  isModalOpenClose: false,
 };

@@ -1,8 +1,9 @@
-export const HANDLE_OPEN_CLOSE_WASHINGMACHINE = 'HANDLE_OPEN_CLOSE_WASHINGMACHINE';
+export const HANDLE_SEARCH_CLOTHES = 'HANDLE_SEARCH_CLOTHES';
 
-export const handleOpenCloseWashingMachine = (boolean) => {
+export const handleSearchClothes = (filterData, check) => {
   return {
-    type: HANDLE_OPEN_CLOSE_WASHINGMACHINE,
-    payload: boolean,
+    type: HANDLE_SEARCH_CLOTHES,
+    payload: filterData,
+    payCheck: check,
   };
 };
