@@ -27,7 +27,6 @@ const Img = styled.div`
 
   /* background-color: transparent; */
   position: relative;
-  z-index: 1;
   transition-duration: 1s;
   :hover {
     transform: scale(1.01);
@@ -51,6 +50,10 @@ const Img = styled.div`
     return isDragging ? `opacity: 0.4;` : `opacity: 1;`;
   }};
 
+  ${({ id }) => {
+    return id === 2 ? `z-index: 500;` : `z-index: 1;`;
+  }};
+
   &:hover {
     ${HoverTitle} {
       display: flex;
@@ -62,6 +65,28 @@ const IMG = styled.img`
   width: 90%;
   height: 90%;
   margin: 0 auto;
+`;
+
+const ClothesArrowContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 105px;
+  height: 105px;
+  border: 3px solid white;
+  border-radius: 30px;
+`;
+
+const ClothesText = styled.div`
+  position: absolute;
+  color: white;
+  font-family: 'font-css';
+  font-size: 3rem;
+  font-weight: 800;
+  transform: translate(-50%, -50%);
+  top: calc(100% + 1rem);
+  left: 50%;
 `;
 
 function Clothes({ data }) {
@@ -81,13 +106,18 @@ function Clothes({ data }) {
   const handleModal = () => {
     dispatch(handleOpenClothesModal(data.id));
   };
-
+  console.log(data.id);
   return (
-    <Img onClick={handleModal} ref={drag} isDragging={isDragging} data={data}>
+    <Img onClick={handleModal} ref={drag} isDragging={isDragging} data={data} id={data.id}>
       <IMG src={data.url} />
       <HoverTitle>
         <span>{data.title}</span>
       </HoverTitle>
+      {data.id === 2 ? (
+        <ClothesArrowContainer>
+          <ClothesText>Clothes</ClothesText>
+        </ClothesArrowContainer>
+      ) : null}
     </Img>
   );
 }
