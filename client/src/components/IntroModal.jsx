@@ -48,10 +48,13 @@ const Title = styled.div`
 const ClothesArrow = styled.img`
   position: absolute;
   transform: translate(-50%, -50%) rotate(180deg);
-  width: 25vw;
+  width: 10rem;
   top: 50%;
   left: 55%;
   z-index: 999;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const WashingMachineTextContainer = styled.div`
@@ -59,6 +62,9 @@ export const WashingMachineTextContainer = styled.div`
   top: 27%;
   left: 23%;
   z-index: 100;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const WashingMachineArrow = styled.img`
@@ -70,12 +76,6 @@ export const WashingMachineArrow = styled.img`
   @media screen and (max-width: 1110px) {
     top: 100%;
   }
-  /* @media screen and (max-width: 920px) {
-    top: 115%;
-  }
-  @media screen and (max-width: 840px) {
-    top: 115%;
-  } */
 `;
 
 export const WashingMachineText = styled.div`
@@ -102,6 +102,9 @@ const ClothesArrowContainer = styled.div`
   height: 105px;
   border: 3px solid white;
   border-radius: 30px;
+  @media screen and (max-width: 600px) {
+    left: 50%;
+  }
 `;
 
 const ClothesText = styled.div`
@@ -131,6 +134,31 @@ const DragNDrop = styled.div`
   color: white;
   font-family: 'font-css';
   z-index: 999;
+  width: 100%;
+  text-align: center;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+`;
+
+const ClickClothes = styled.div`
+  color: white;
+  position: absolute;
+  transform: translate(-50%, 0);
+  top: 60%;
+  left: 75%;
+  font-size: 3rem;
+  font-weight: 800;
+  font-family: 'font-css';
+  z-index: 999;
+  text-align: center;
+  width: 100%;
+  img {
+    height: 80px;
+  }
+  @media screen and (max-width: 600px) {
+    left: 50%;
+  }
 `;
 
 function IntroModal() {
@@ -168,6 +196,14 @@ function IntroModal() {
       <DragNDrop>
         <div>Drag N Drop</div>
       </DragNDrop>
+      <ClickClothes>
+        <img src="../../rowArrow.png" />
+        <div>
+          Click
+          <br />
+          Clothes Button
+        </div>
+      </ClickClothes>
     </Intro>
   );
 }
