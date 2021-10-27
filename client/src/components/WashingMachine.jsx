@@ -28,10 +28,6 @@ import {
   Fix,
   Edge,
   Base,
-  WashingMachineTextContainer,
-  WashingMachineArrow,
-  WashingMachineText,
-  ClothesArrow,
 } from './WashingMachineCss';
 
 function WashingMachine() {
@@ -79,14 +75,6 @@ function WashingMachine() {
 
   return (
     <WaterContainer machineShake={machineShake}>
-      <WashingMachineTextContainer>
-        <WashingMachineArrow src="../../꼬리표.png"></WashingMachineArrow>
-        <WashingMachineText>
-          WASHING <br />
-          MACHINE
-        </WashingMachineText>
-      </WashingMachineTextContainer>
-
       <Machine ref={drop}>
         <Above></Above>
         <Canvas>

@@ -85,7 +85,7 @@ export const WaterContainer = styled.div`
   justify-content: center;
   align-items: center;
   animation: ${wavingMachine} 1s infinite;
-  z-index: 6;
+  /* z-index: 6; */
   ${({ machineShake }) => {
     return machineShake
       ? css`
@@ -107,7 +107,6 @@ export const Machine = styled.div`
   /* -webkit-filter: drop-shadow(black -3px -4px 10px);
   filter: drop-shadow(black 3px 4px 10px); */
   transform: scale(1.5);
-  position: relative;
   @media screen and (max-width: 600px) {
     display: none;
   }
@@ -124,6 +123,7 @@ export const Machine = styled.div`
     transform: scale(1);
   }
 `;
+
 export const Above = styled.div`
   width: 280px;
   height: 30px;
@@ -550,39 +550,5 @@ export const Base = styled.div`
   }
   &:after {
     left: 88%;
-  }
-`;
-
-export const WashingMachineTextContainer = styled.div`
-  position: absolute;
-  top: 90%;
-  left: 20%;
-  z-index: 100;
-  @media screen and (max-width: 1200px) {
-    top: 80%;
-  }
-`;
-
-export const WashingMachineArrow = styled.img`
-  z-index: 100;
-  width: 150px;
-  transform: rotate(25deg);
-  @media screen and (max-width: 1000px) {
-    display: none;
-  }
-`;
-
-export const WashingMachineText = styled.div`
-  font-size: 3rem;
-  font-weight: 800;
-  color: white;
-  font-family: 'font-css';
-  text-align: center;
-  position: absolute;
-  top: 20%;
-  z-index: 1;
-  left: 100%;
-  @media screen and (max-width: 600px) {
-    display: none;
   }
 `;
