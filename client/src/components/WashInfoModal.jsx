@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { handleCloseClothesModal } from '../actions/ClotheModalActionIndex';
+import axios from 'axios';
+
+const YoutubeAPIKey = process.env.REACT_APP_GOOGLE_API_KEY;
+axios.defaults.withCredentials = true;
 
 const openKeyframes = keyframes`
   to{
@@ -31,11 +35,32 @@ const Modal = styled.div`
 `;
 
 function WashInfoModal({ data }) {
+  const url = '/youtube/v3/search';
+
   const dispatch = useDispatch();
+  const params = {
+    key: YoutubeAPIKey,
+    part: 'snippet',
+    q: '셔츠세탁방법', //데이터 삽입 후 바꿔주기
+    maxResults: 5,
+    type: 'video',
+    regionCode: 'KR',
+  };
 
   const handleModalClose = () => {
     dispatch(handleCloseClothesModal());
   };
+
+  useEffect(() => {
+    axios.get(url, { params }).then((data) => {
+      console.log(data.data.items);
+    });
+
+    // 영상ID :: item.id.videoId
+    // 영상제목 item.snippet.title
+    // 영상설명 item.snippet.description
+    // 썸네일 item.snippet.thumbnails.medium.url
+  }, []);
 
   return (
     <ModalContainer>
