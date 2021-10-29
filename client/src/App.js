@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { DndProvider } from 'react-dnd';
@@ -46,6 +46,7 @@ const Background = styled.div`
 `;
 
 function App() {
+  const [isModal, setIsModal] = useState(true);
   const state = useSelector((state) => state);
   return (
     <DndProvider backend={HTML5Backend}>
@@ -53,7 +54,7 @@ function App() {
         <Background>
           <WashingMachine />
           <ClothesContainer />
-          <IntroModal />
+          {isModal ? <IntroModal setIsModal={setIsModal} /> : null}
         </Background>
         {state.ClothesModalReducer.isModalOpenClose ? (
           <WashInfoModal data={state.ClothesModalReducer.ClothesData[0]} />
