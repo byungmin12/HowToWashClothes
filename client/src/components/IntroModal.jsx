@@ -45,6 +45,12 @@ const Title = styled.div`
   }
 `;
 
+const MainContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+`;
+
 const ClothesArrow = styled.img`
   position: absolute;
   transform: translate(-50%, -50%) rotate(180deg);
@@ -58,10 +64,13 @@ const ClothesArrow = styled.img`
 `;
 
 export const WashingMachineTextContainer = styled.div`
-  position: absolute;
-  top: 27%;
-  left: 23%;
-  z-index: 100;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
   @media screen and (max-width: 600px) {
     display: none;
   }
@@ -71,11 +80,20 @@ export const WashingMachineArrow = styled.img`
   z-index: 100;
   width: 150px;
   transform: rotate(25deg);
+  /* position: absolute; */
+  /* top: 80%; */
+  /* left: 20%; */
+  /* @media screen and (max-width: 1110px) {
+    top: 75%;
+  } */
+`;
+
+const WashingMachineTextArrowContainer = styled.div`
   position: absolute;
-  top: 115%;
-  @media screen and (max-width: 1110px) {
-    top: 100%;
-  }
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  display: flex;
 `;
 
 export const WashingMachineText = styled.div`
@@ -84,13 +102,18 @@ export const WashingMachineText = styled.div`
   color: white;
   font-family: 'font-css';
   text-align: center;
-  position: absolute;
-  top: 115%;
+  /* position: absolute; */
+  /* top: 83%; */
   z-index: 1;
-  left: 50%;
-  @media screen and (max-width: 1110px) {
-    top: 105%;
-  }
+  /* left: 45%; */
+  /* @media screen and (max-width: 1110px) {
+    top: 77%;
+  } */
+`;
+
+const ClothesMainContainer = styled.div`
+  width: 50%;
+  height: 100%;
 `;
 
 const ClothesArrowContainer = styled.div`
@@ -161,7 +184,28 @@ const ClickClothes = styled.div`
   }
 `;
 
-function IntroModal() {
+const CloseButton = styled.div`
+  width: 2rem;
+  position: absolute;
+  top: 92%;
+  left: 50%;
+  font-size: 2rem;
+  color: white;
+  border-radius: 10px;
+  border: 3px solid white;
+  /* padding: 3px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2px 0 2px;
+  transform: translate(-50%, 0);
+
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+function IntroModal({ setIsModal }) {
   const ExData = [
     {
       id: 40,
@@ -172,38 +216,52 @@ function IntroModal() {
     },
   ];
 
+  const handleOpenClose = () => {
+    setIsModal(false);
+  };
+
   return (
     <Intro>
       <Title>How to use this App ?</Title>
-      <ClothesArrow src="../../ClothesArrow.png" />
-      <WashingMachineTextContainer>
-        <WashingMachine />
-        <WashingMachineArrow src="../../꼬리표.png"></WashingMachineArrow>
-        <WashingMachineText>
-          WASHING <br />
-          MACHINE
-        </WashingMachineText>
-      </WashingMachineTextContainer>
-      <ClothesArrowContainer>
-        {/* <Clothes data={ExData} /> */}
-        <ClothesContainer>
-          {ExData.map((el) => {
-            return <Clothes data={el} key={el.id} />;
-          })}
-        </ClothesContainer>
-        <ClothesText>Clothes</ClothesText>
-      </ClothesArrowContainer>
-      <DragNDrop>
-        <div>Drag N Drop</div>
-      </DragNDrop>
-      <ClickClothes>
-        <img src="../../rowArrow.png" />
-        <div>
-          Click
-          <br />
-          Clothes Button
-        </div>
-      </ClickClothes>
+      <MainContainer>
+        <WashingMachineTextContainer>
+          <WashingMachine />
+          <WashingMachineTextArrowContainer>
+            <WashingMachineArrow src="../../curveArrow.png.png"></WashingMachineArrow>
+            <WashingMachineText>
+              WASHING <br />
+              MACHINE
+            </WashingMachineText>
+          </WashingMachineTextArrowContainer>
+        </WashingMachineTextContainer>
+
+        <ClothesMainContainer>
+          <ClothesArrowContainer>
+            {/* <Clothes data={ExData} /> */}
+            <ClothesContainer>
+              {ExData.map((el) => {
+                return <Clothes data={el} key={el.id} />;
+              })}
+            </ClothesContainer>
+            <ClothesText>Clothes</ClothesText>
+            <ClickClothes>
+              <img src="../../rowArrow.png" />
+              <div>
+                Click
+                <br />
+                Button
+              </div>
+            </ClickClothes>
+          </ClothesArrowContainer>
+
+          <ClothesArrow src="../../ClothesArrow.png" />
+          <DragNDrop>
+            <div>Drag N Drop</div>
+          </DragNDrop>
+        </ClothesMainContainer>
+
+        <CloseButton onClick={handleOpenClose}>x</CloseButton>
+      </MainContainer>
     </Intro>
   );
 }
